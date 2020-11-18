@@ -36,13 +36,8 @@ def get_product_details(url):
         details["price"] = get_converted_price(price.get_text())
         print ("Price: $%s"  % details["price"])
         print (type(details["price"]))
-        #trying to verify that the price is a float
-        #print ("Price with badass 50% discount: $" + (details["price"])/2)
-
-        #price = soup.find(class="price_section")
 
 
-       # price = soup.find(id="priceBlockStrikePriceString")
         #What should this case be for Staples?
         if price is None:
             print "price is None"
@@ -79,7 +74,7 @@ def extract_url(url):
         url = None
     return url
 
-#do I need this function for Staples.com? what exactly is its purpose?
+#Understand exactly what the regex is doing?
 def get_converted_price(price):
 
     # stripped_price = price.strip("$ ,")
