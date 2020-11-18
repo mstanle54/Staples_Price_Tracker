@@ -25,6 +25,8 @@ def get_product_details(url):
         details["name"] = title
 
         price= soup.find(class_="price-info__final_price")
+        regularPrice=soup.find(class_="price-info__originalPrice")
+        print("The regular price is: " +regularPrice.get_text())
 
         #let's print the whole html thing...whatever it's called
         print (price)
@@ -94,8 +96,8 @@ def print_product_details(extracted_details):
           "Price: $%s"  % extracted_details["price"] + "\n" +
           "On Sale?: %r" % extracted_details["deal"])
 
-#product_url = raw_input("Enter URL of product:")
-product_url = "https://www.staples.com/Post-it-Notes-Canary-Yellow-3-x-3-12-Pads-Pack-654-12YW/product_130005"
+product_url = raw_input("Enter URL of product:")
+#product_url = "https://www.staples.com/tru-red-plastic-magazine-file-white-tr55280/product_24380371"
 #extract_url(product_url)
 get_product_details(product_url)
 print_product_details(get_product_details(product_url))
