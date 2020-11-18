@@ -39,6 +39,7 @@ def get_product_details(url):
 
 
         #What should this case be for Staples?
+        #if regularPrice is not found, then it is not on sale
         if price is None:
             print "price is None"
 
