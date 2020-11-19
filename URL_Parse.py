@@ -20,15 +20,13 @@ def get_product_details(url):
         #may not need to .get_text() here. see if it messes anything
         title = soup.find ('h1', {'id' :'product_title'}).get_text()
 
-        print("Title is: %s"  % title)
+        #print("Title is: %s"  % title)
 
         details["name"] = title
 
-        #try to find non-sale price
+        #try to find non-sale price.Finding this means item is currently on sale
         price=soup.find(class_="price-info__originalPrice")
 
-
-        print "yas?"
 
         #see if float or string
         #print (type(details["price"]))
@@ -43,12 +41,12 @@ def get_product_details(url):
 
         if title is not None and price is not None:
             #details["name"] = title.get_text().strip()
+            price = soup.find(class_="price-info__final_price")
             details["name"] = title
             details["price"] = get_converted_price(price.get_text())
             details["url"] = _url
 
         else:
-            print ("Do I get to this else?")
             return None
         return details
 
@@ -85,21 +83,20 @@ def get_converted_price(price):
 
 def print_product_details(extracted_details):
     print("\n" +extracted_details["name"] + "\n" +
-          "Price: $%s"  % extracted_details["price"] + "\n" +
+          "Current Price: $%s"  % extracted_details["price"] + "\n" +
           "On Sale?: %r" % extracted_details["deal"])
 
+#to test any url
 #product_url = raw_input("Enter URL of product:")
-userInput = raw_input("Please enter A to test a sale item or B to test a regular priced item: ")
 
+#to test a given sale or non-sale item
+userInput = raw_input("Please enter A to test a sale item or B to test a regular priced item: ").lower()
 
-if userInput == "A":
+if userInput == "a":
     product_url = "https://www.staples.com/staples-hyken-technical-mesh-task-chair-silver-53293/product_24328579"
-elif userInput == "B":
+elif userInput == "b":
     product_url = "https://www.staples.com/Post-it-Notes-Canary-Yellow-3-x-3-12-Pads-Pack-654-12YW/product_130005"
 
-#product_url = "https://www.staples.com/tru-red-plastic-magazine-file-white-tr55280/product_24380371"
-# https://www.staples.com/Post-it-Notes-Canary-Yellow-3-x-3-12-Pads-Pack-654-12YW/product_130005
-# https://www.staples.com/staples-hyken-technical-mesh-task-chair-silver-53293/product_24328579
 #extract_url(product_url)
 #get_product_details(product_url)
 print_product_details(get_product_details(product_url))
