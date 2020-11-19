@@ -90,12 +90,15 @@ def print_product_details(extracted_details):
 #product_url = raw_input("Enter URL of product:")
 
 #to test a given sale or non-sale item
-userInput = raw_input("Please enter A to test a sale item or B to test a regular priced item: ").lower()
+userInput = raw_input("Please enter A to test a sale item, B to test a regular priced item, or enter any staples.com "
+                      "url: ").lower()
 
 if userInput == "a":
     product_url = "https://www.staples.com/staples-hyken-technical-mesh-task-chair-silver-53293/product_24328579"
 elif userInput == "b":
     product_url = "https://www.staples.com/Post-it-Notes-Canary-Yellow-3-x-3-12-Pads-Pack-654-12YW/product_130005"
+else:
+    product_url=userInput
 
 #extract_url(product_url)
 #get_product_details(product_url)
