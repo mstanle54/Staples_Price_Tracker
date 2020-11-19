@@ -24,27 +24,25 @@ def get_product_details(url):
 
         details["name"] = title
 
-        price= soup.find(class_="price-info__final_price")
-        regularPrice=soup.find(class_="price-info__originalPrice")
-        print("The regular price is: " +regularPrice.get_text())
+        #try to find non-sale price
+        price=soup.find(class_="price-info__originalPrice")
 
-        #let's print the whole html thing...whatever it's called
-        print (price)
+
         print "yas?"
-        #I suppose the price is the only actual text in that html code, so we can simply .get_text()
-        print("Here it is girly "+price.get_text())
-        details["price"] = get_converted_price(price.get_text())
-        print ("Price: $%s"  % details["price"])
-        print (type(details["price"]))
 
+        #see if float or string
+        #print (type(details["price"]))
+        count=0
+        print("count %d "% count)
 
         #What should this case be for Staples?
         #if regularPrice is not found, then it is not on sale
         if price is None:
-            print "price is None"
+            print "price is None if block"
 
-            price = soup.find(id="priceblock_ourprice")
+            price= soup.find(class_="price-info__final_price")
             details["deal"] = False
+            ++count
 
         if title is not None and price is not None:
             #details["name"] = title.get_text().strip()
@@ -53,6 +51,7 @@ def get_product_details(url):
             details["url"] = _url
 
         else:
+            print ("Do I get to this else?")
             return None
         return details
 
@@ -92,8 +91,16 @@ def print_product_details(extracted_details):
           "Price: $%s"  % extracted_details["price"] + "\n" +
           "On Sale?: %r" % extracted_details["deal"])
 
-product_url = raw_input("Enter URL of product:")
+userInput = raw_input("Enter URL of product:")
+print(raw_input())
+if raw_input == "A":
+    product_url = "https://www.staples.com/staples-hyken-technical-mesh-task-chair-silver-53293/product_24328579"
+if raw_input == "B":
+    product_url = "https://www.staples.com/Post-it-Notes-Canary-Yellow-3-x-3-12-Pads-Pack-654-12YW/product_130005"
+
 #product_url = "https://www.staples.com/tru-red-plastic-magazine-file-white-tr55280/product_24380371"
+# https://www.staples.com/Post-it-Notes-Canary-Yellow-3-x-3-12-Pads-Pack-654-12YW/product_130005
+# https://www.staples.com/staples-hyken-technical-mesh-task-chair-silver-53293/product_24328579
 #extract_url(product_url)
-get_product_details(product_url)
+#get_product_details(product_url)
 print_product_details(get_product_details(product_url))
